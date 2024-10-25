@@ -1,53 +1,74 @@
-public class Q25 {
-    private int[] stack;
-    private int top;
-    private int capacity;
+/* Java program to implement basic stack 
+operations */
+class Stack { 
+    static final int MAX = 1000; 
+    int top; 
+    int a[] = new int[MAX]; // Maximum size of Stack 
 
-    public Stack(int size) {
-        capacity = size;
-        stack = new int[capacity];
-        top = -1;
-    }
+    boolean isEmpty() 
+    { 
+        return (top < 0); 
+    } 
+    Stack() 
+    { 
+        top = -1; 
+    } 
 
-    public void push(int value) {
-        if (top == capacity - 1) {
-            System.out.println("Stack Overflow");
-        } else {
-            stack[++top] = value;
-            System.out.println(value + " pushed to stack");
-        }
-    }
+    boolean push(int x) 
+    { 
+        if (top >= (MAX - 1)) { 
+            System.out.println("Stack Overflow"); 
+            return false; 
+        } 
+        else { 
+            a[++top] = x; 
+            System.out.println(x + " pushed into stack"); 
+            return true; 
+        } 
+    } 
 
-    public int pop() {
-        if (top == -1) {
-            System.out.println("Stack Underflow");
-            return -1;
-        } else {
-            return stack[top--];
-        }
-    }
+    int pop() 
+    { 
+        if (top < 0) { 
+            System.out.println("Stack Underflow"); 
+            return 0; 
+        } 
+        else { 
+            int x = a[top--]; 
+            return x; 
+        } 
+    } 
 
-    public int peek() {
-        if (top == -1) {
-            System.out.println("Stack is empty");
-            return -1;
-        } else {
-            return stack[top];
-        }
-    }
+    int peek() 
+    { 
+        if (top < 0) { 
+            System.out.println("Stack Underflow"); 
+            return 0; 
+        } 
+        else { 
+            int x = a[top]; 
+            return x; 
+        } 
+    } 
+    
+    void print(){ 
+    for(int i = top;i>-1;i--){ 
+    System.out.print(" "+ a[i]); 
+    } 
+} 
+} 
 
-    public boolean isEmpty() {
-        return top == -1;
-    }
-
-    public static void main(String[] args) {
-        Stack stack = new Stack(5);
-
-        stack.push(10);
-        stack.push(20);
-        stack.push(30);
-
-        System.out.println(stack.pop() + " popped from stack");
-        System.out.println("Top element is " + stack.peek());
-    }
+// Driver code 
+class Q25 { 
+    public static void main(String args[]) 
+    { 
+        Stack s = new Stack(); 
+        s.push(10); 
+        s.push(20); 
+        s.push(30); 
+        System.out.println(s.pop() + " Popped from stack"); 
+        System.out.println("Top element is :" + s.peek()); 
+        System.out.print("Elements present in stack :"); 
+        s.print(); 
+    } 
 }

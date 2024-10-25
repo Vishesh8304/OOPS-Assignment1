@@ -1,49 +1,109 @@
-public class Q26 {
-    private int[] queue;
-    private int front, rear, size, capacity;
+import java.util.*;
 
-    public Queue(int size) {
-        capacity = size;
+class Queue{
+    int front, rear, capacity;
+    int[] queue;
+
+    // Constructor to initialize the queue
+    Queue (int c) {
+        front = 0;
+        rear = -1;
+        capacity = c;
         queue = new int[capacity];
-        front = rear = 0;
-        this.size = 0;
     }
 
-    public void enqueue(int value) {
-        if (size == capacity) {
+    // Function to insert an element at the rear of the queue
+    void enqueue(int data) {
+        // Check if the queue is full
+        if (rear == capacity - 1) {
             System.out.println("Queue is full");
-        } else {
-            queue[rear] = value;
-            rear = (rear + 1) % capacity;
-            size++;
-            System.out.println(value + " enqueued to queue");
+            return;
         }
+
+        // Insert element at the rear
+        queue[++rear] = data;
     }
 
-    public int dequeue() {
-        if (size == 0) {
+    // Function to delete an element from the front of the queue
+    void dequeue() {
+        // If the queue is empty
+        if (front > rear) {
             System.out.println("Queue is empty");
-            return -1;
-        } else {
-            int value = queue[front];
-            front = (front + 1) % capacity;
-            size--;
-            return value;
+            return;
         }
+
+        // Shift all elements from index 1 till rear to the left by one
+        for (int i = 0; i < rear; i++) {
+            queue[i] = queue[i + 1];
+        }
+
+        // Decrement rear
+        rear--;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
+    // Function to print queue elements
+    void display() {
+        if (front > rear) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        // Traverse front to rear and print elements
+        for (int i = front; i <= rear; i++) {
+            System.out.print(queue[i] + " <-- ");
+        }
+        System.out.println();
     }
 
-    public static void main(String[] args) {
-        Queue queue = new Queue(5);
-
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
-
-        System.out.println(queue.dequeue() + " dequeued from queue");
+    // Function to print the front of the queue
+    void front() {
+        if (rear == -1) {
+            System.out.println("Queue is Empty");
+            return;
+        }
+        System.out.println("Front Element is: " + queue[front]);
     }
 }
+class Q26
+{
+    public static void main(String[] args) {
+        // Create a queue of capacity 4
+    Queue q = new Queue (4);
 
+        // Print queue elements
+        q.display();
+
+        // Insert elements in the queue
+        q.enqueue(20);
+        q.enqueue(30);
+        q.enqueue(40);
+        q.enqueue(50);
+
+        // Print queue elements
+        q.display();
+
+        // Insert element in the queue
+        q.enqueue(60);
+
+        // Print queue elements
+        q.display();
+
+        // Dequeue elements
+        q.dequeue();
+        q.dequeue();
+
+        System.out.println("After two node deletions");
+
+        // Print queue elements
+        q.display();
+
+        System.out.println("After one insertion");
+        q.enqueue(60);
+
+        // Print queue elements
+        q.display();
+
+        // Print front of the queue
+        q.front();
+    }
+}
